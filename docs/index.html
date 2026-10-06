@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PFO 2 - Sistema de gestión de tareas</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; }
+    img { max-width: 100%; border: 1px solid #ccc; margin: 0.5rem 0; }
+    code, pre { background: #f2f2f2; padding: 0.1rem 0.3rem; }
+    pre { padding: 0.6rem; overflow-x: auto; }
+    table { border-collapse: collapse; }
+    th, td { border: 1px solid #ccc; padding: 0.4rem 0.6rem; text-align: left; }
+  </style>
+</head>
+<body>
+  <h1>PFO 2 - Sistema de gestión de tareas</h1>
+  <p>API en Flask con registro de usuarios, inicio de sesión y una ruta de bienvenida. Guarda los datos en SQLite y las contraseñas hasheadas. Programación sobre Redes, IFTS 29.</p>
+  <p><a href="https://github.com/raquerh/PsR_PFO2_Gestion_Tareas">Código en GitHub</a></p>
+
+  <h2>Archivos</h2>
+  <ul>
+    <li><code>servidor.py</code>: API Flask con SQLite.</li>
+    <li><code>cliente.py</code>: cliente de consola con un menú para usar la API.</li>
+    <li><code>requirements.txt</code>: dependencias (flask y requests).</li>
+  </ul>
+
+  <h2>Cómo ejecutarlo</h2>
+  <pre>pip install -r requirements.txt</pre>
+  <ol>
+    <li>En una terminal: <code>py servidor.py</code>. Queda escuchando en <code>http://127.0.0.1:5000</code> y crea <code>tareas.db</code> la primera vez.</li>
+    <li>En otra terminal: <code>py cliente.py</code>.</li>
+  </ol>
+  <p>En Linux o Mac se usa <code>python3</code> en lugar de <code>py</code>. GitHub Pages solo muestra esta documentación: el servidor se ejecuta en la computadora de quien lo pruebe.</p>
+
+  <h2>Endpoints</h2>
+  <table>
+    <tr><th>Método</th><th>Ruta</th><th>Qué hace</th></tr>
+    <tr><td>POST</td><td>/registro</td><td>Recibe usuario y contraseña y guarda el hash en la base. Responde 201, 400 o 409.</td></tr>
+    <tr><td>POST</td><td>/login</td><td>Verifica las credenciales e inicia la sesión. Responde 200 o 401.</td></tr>
+    <tr><td>GET</td><td>/tareas</td><td>Muestra el HTML de bienvenida si hay una sesión iniciada. Responde 200 o 401.</td></tr>
+  </table>
+
+  <h2>Capturas de las pruebas</h2>
+
+  <h3>Servidor y cliente corriendo</h3>
+  <img src="capturas/servidor_corriendo.jpg" alt="Servidor corriendo">
+  <img src="capturas/cliente_corriendo.jpg" alt="Cliente corriendo">
+
+  <h3>Registro de usuarios</h3>
+  <img src="capturas/usuario_registrado.jpg" alt="Registro exitoso">
+  <img src="capturas/usuario_repetido.jpg" alt="Usuario repetido">
+  <img src="capturas/registro_sin_dato.jpg" alt="Registro sin contraseña">
+
+  <h3>Inicio de sesión</h3>
+  <img src="capturas/login_incorrecto.jpg" alt="Login con contraseña incorrecta">
+  <img src="capturas/login_correcto.jpg" alt="Login correcto">
+
+  <h3>Ruta /tareas</h3>
+  <img src="capturas/tareas_sin_sesion.jpg" alt="Tareas sin sesión">
+  <img src="capturas/tareas_con_sesion.jpg" alt="Tareas con sesión">
+
+  <h3>Base de datos, con los hashes en lugar de las contraseñas</h3>
+  <img src="capturas/hash_en_base.jpg" alt="Hash en la base">
+
+  <h2>Respuestas conceptuales</h2>
+
+  <h3>¿Por qué hashear contraseñas?</h3>
+  <p>Hasheo las contraseñas para no guardar nunca la contraseña real en la base de datos. El hash es una función de un solo sentido: a partir del hash no se puede volver a la contraseña. Si alguien consigue la base, solo ve los hashes, que no sirven para entrar ni dicen qué contraseña eligió cada usuario. Además, la librería le agrega un salt aleatorio a cada contraseña, así que dos usuarios con la misma contraseña terminan con hashes distintos y no sirven las tablas de hashes ya calculados. En el login el servidor no descifra nada: vuelve a calcular el hash de lo que escribió el usuario y lo compara con el que tiene guardado.</p>
+
+  <h3>Ventajas de usar SQLite en este proyecto</h3>
+  <p>SQLite viene incluido en Python, así que no hace falta instalar ni configurar un servidor de base de datos. Toda la base es un solo archivo, <code>tareas.db</code>, que se crea solo la primera vez que corre el servidor y se puede borrar para empezar de cero. Para un proyecto chico como este, con pocos usuarios, alcanza, y quien quiera probarlo solo tiene que correr el servidor.</p>
+</body>
+</html>
