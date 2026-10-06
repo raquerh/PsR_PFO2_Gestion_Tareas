@@ -52,6 +52,7 @@ Con el servidor corriendo, se usa el menú de `cliente.py`. El orden de pruebas 
 Servidor y cliente corriendo:
 
 ![Servidor corriendo](docs/capturas/servidor_corriendo.jpg)
+![Cliente corriendo](docs/capturas/cliente_corriendo.jpg)
 
 
 Registro de usuarios:
