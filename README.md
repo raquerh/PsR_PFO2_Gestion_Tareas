@@ -54,6 +54,7 @@ Servidor y cliente corriendo:
 ![Servidor corriendo](docs/capturas/servidor_corriendo.jpg)
 ![Cliente corriendo](docs/capturas/cliente_corriendo.jpg)
 
+
 Registro de usuarios:
 
 ![Registro exitoso](docs/capturas/usuario_registrado.jpg)
